@@ -1,3 +1,6 @@
+# 1.1 - 2020-08-14
+- Distinguish 'pending' and 'arming' states
+
 # 1.0 - 2019-11-06
 - Add CHANGELOG
 - Update dependencies
