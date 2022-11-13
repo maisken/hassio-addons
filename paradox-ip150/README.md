@@ -37,17 +37,19 @@ Then:
 #### Hass.io: add-on configuration details => Paradox IP150MQTT Adapter (web based configuration)
 ```
 {
-“IP150_ADDRESS”: “http://[IP-OF-IP150]”,
-“PANEL_CODE”: “[mastercode]”,
-“PANEL_PASSWORD”: “[webpassword]”,
-“MQTT_ADDRESS”: “mqtt://[IP-OF-MQTT-BROKER]”,
-“MQTT_USERNAME”: “MQTT_user”,
-“MQTT_PASSWORD”: “MQTT_pwd”,
-“ALARM_PUBLISH_TOPIC”: “paradox/alarm/state”,
-“ALARM_SUBSCRIBE_TOPIC”: “paradox/alarm/cmnd”,
-“ZONE_PUBLISH_TOPIC”: “paradox/zone/state”,
-“CTRL_PUBLISH_TOPIC”: “paradox/ctrl/state”,
-“CTRL_SUBSCRIBE_TOPIC”: “paradox/ctrl/cmnd”
+"IP150_ADDRESS": "http://[IP-OF-IP150]",
+"PANEL_CODE": "[mastercode]",
+"PANEL_PASSWORD": "[webpassword]",
+"REFRESH_RATE": 0.5,
+"MQTT_ADDRESS": "mqtt://[IP-OF-MQTT-BROKER]",
+"MQTT_USERNAME": "MQTT_user",
+"MQTT_PASSWORD": "MQTT_pwd",
+"LOG_LEVEL": "WARNING",
+"ALARM_PUBLISH_TOPIC": "paradox/alarm/state",
+"ALARM_SUBSCRIBE_TOPIC": "paradox/alarm/cmnd",
+"ZONE_PUBLISH_TOPIC": "paradox/zone/state",
+"CTRL_PUBLISH_TOPIC": "paradox/ctrl/state",
+"CTRL_SUBSCRIBE_TOPIC": "paradox/ctrl/cmnd"
 }
 ```
 
@@ -56,8 +58,8 @@ Then:
 alarm_control_panel:
   - platform: mqtt
     name: "House Paradox"
-    state_topic: “paradox/alarm/state/1”
-    command_topic: “paradox/alarm/cmnd/1”
+    state_topic: "paradox/alarm/state/1"
+    command_topic: "paradox/alarm/cmnd/1"
     qos: 1
     availability_topic: "paradox/ctrl/state"
     payload_available: "Connected"
@@ -69,19 +71,20 @@ type: alarm-panel
 states:
   - arm_home
   - arm_away
+  - arm_night
 entity: alarm_control_panel.house_paradox
 name: Alarm
 ```
 
 #### configuration.yaml - Configuring PIR sensors (optional)
 ```
-binary-sensor:
+binary_sensor:
   - platform: mqtt
-    state_topic: “paradox/zone/state/2”
-    name: “Study”
+    state_topic: "paradox/zone/state/2"
+    name: "Study"
     qos: 1
-    payload_on: “on”
-    payload_off: “off”
+    payload_on: "on"
+    payload_off: "off"
     availability_topic: "paradox/ctrl/state"
     payload_available: "Connected"
     payload_not_available: "Disconnected"
